@@ -20,15 +20,15 @@ public package nếu test thành công (python setup.py sdist) <br />
 pip install -r requirements.txt <br />
 https://techtalk.vn/blog/posts/python-test-python-don-gian-nhu-giat-mot-soi-tox
  <br />
-setup(
-    name="MyLibrary",
-    version="1.0",
-    install_requires=[
-        "requests",
-        "bcrypt",
-    ],
-    # ...
-)
+setup( <br />
+    name="MyLibrary", <br />
+    version="1.0", <br />
+    install_requires=[ <br />
+        "requests", <br />
+        "bcrypt", <br />
+    ], <br />
+    # ... <br />
+) <br />
  <br />
 https://caremad.io/posts/2013/07/setup-vs-requirement/
  <br />
