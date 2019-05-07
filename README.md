@@ -1,35 +1,30 @@
-# Example Package
+# Install pip
+> https://pip.pypa.io/en/stable/installing/
 
+# Install env
+> https://gist.github.com/Geoyi/d9fab4f609e9f75941946be45000632b
+> pip install virtualenv
+
+# Create ennv
+>  virtualenv venv
+
+# Check error pep-0008
+> flake8
+# check syntax 
+> pylint
+
+# Install module
+> python setup.py install (Or python 3 setup.py install)
+
+# Distribution package
+> python setup.py sdist (Or python3 setup.py sdist)
+
+# Install package
+> pip install -r requirements.txt 
+
+# How to write README.md
 This is a simple example package. You can use <br />
 [Github-flavored Markdown](https://guides.github.com/features/mastering-markdown/)
 to write your content.  <br />
-https://techtalk.vn/blog/posts/python-test-python-don-gian-nhu-giat-mot-soi-tox
-
-Các bước phải làm: <br />
-
-đầu tiên là tạo virtualenv <br />
-rồi source virtualenv <br />
-chạy pip install -r requirements.txt <br />
-chạy flake8 kiểm tra lỗi pep-0008 <br />
-chạy pylint kiểm tra lỗi lint  <br />
-install module (python setup.py install) rồi chạy test <br />
-chạy test bằng py.test tests/ hoặc một cách nào đó khác <br />
-public package nếu test thành công (python setup.py sdist) <br />
 
 
-pip install -r requirements.txt <br />
-https://techtalk.vn/blog/posts/python-test-python-don-gian-nhu-giat-mot-soi-tox
- <br />
-setup( <br />
-    name="MyLibrary", <br />
-    version="1.0", <br />
-    install_requires=[ <br />
-        "requests", <br />
-        "bcrypt", <br />
-    ], <br />
-    # ... <br />
-) <br />
- <br />
-https://caremad.io/posts/2013/07/setup-vs-requirement/
- <br />
-pip install -r requirements.txt

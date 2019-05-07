@@ -5,7 +5,7 @@ import tzlocal
 
 
 def concatData(i):
-    return pd.concat([pd.read_csv("../data/week" + str(i) + "/" + str(x),header=None) for x in range(7*(i-1),7*i)])
+    return pd.concat([pd.read_csv("../data/week" + str(i) + "/" + str(x), header=None) for x in range(7*(i-1),7*i)])
 def genTime(timestamp):
     unix_timestamp = timestamp//1000
     local_timezone = tzlocal.get_localzone() # get pytz timezone
