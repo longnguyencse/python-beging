@@ -55,8 +55,10 @@ def genLable(speed):
         return "Red"
     elif speed >= 5 and speed < 15:
         return "Yellow"
-    elif speed >= 15:
+    elif speed >= 15 and speed < 25:
         return "Green"
+    else:
+        return "TT"
 
 
 def concatResData(lst):
@@ -64,7 +66,7 @@ def concatResData(lst):
 
 
 def genDataSet(streetID, file_name_gen_for_week, datasetName):
-    for i in list(range(1, 2)):
+    for i in list(range(1, 8)):
         df = concatData(i)
         df[0] = df[0].apply(lambda x: x - (streetID << 16))
         df = df[(df[0] > 0) & (df[0] < 100)].sort_values([0, 8]).reset_index()[[0, 1, 8]]
@@ -75,7 +77,7 @@ def genDataSet(streetID, file_name_gen_for_week, datasetName):
         df['congestion'] = df[1].apply(genLable)
         df.columns = ['segmentId', 'speed', 'timestamp', 'weekday', 'hour', 'isPeakedTime', 'isWeekend', 'congestion']
         df.to_csv('../data/week' + str(i) + '/' + file_name_gen_for_week + '.csv', index=False)
-    df = concatResData(list(range(1, 2)))  # w 1,2,3,4,5,6,7
+    df = concatResData(list(range(1, 8)))  # w 1,2,3,4,5,6,7
     df.to_csv(datasetName + '.csv', index=False)
 
 def cleaning(dataset_name, cleaned_dataset_name):
@@ -106,14 +108,14 @@ def replicate(trainfile, outputfile, replicate_label, reference_label, header='i
 
 def precesorData():
     startTime = datetime.now().timestamp();
-    print(startTime);
+    print(datetime.now());
 
     genDataSet(220860894, 'ltk_week_data', 'train_ltk')
-    # genDataSet(219861105, 'tc_week_data', 'train_tc')
+    genDataSet(219861105, 'tc_week_data', 'train_tc')
     #
-    # cleaning('train_ltk', 'train_ltk_cleaned')
-    # cleaning('train_tc', 'train_tc_cleaned')
-    print(datetime.now().timestamp())
-    print(datetime.now().timestamp() -startTime)
+    cleaning('train_ltk', 'train_ltk_cleaned')
+    cleaning('train_tc', 'train_tc_cleaned')
+    print(datetime.now())
+    print('Time took: ' + str(datetime.now().timestamp() - startTime) + ' s')
 
 precesorData()
