@@ -22,6 +22,11 @@
 # Install package
 > pip install -r requirements.txt 
 
+# download data from link
+> https://drive.google.com/open?id=14hCB5Vdzm1FpJ0ZiBoqd8w_Zc32N_IV1
+copy folder data into <project-folder>/
+result: <project-folder>/data
+
 # How to write README.md
 This is a simple example package. You can use <br />
 [Github-flavored Markdown](https://guides.github.com/features/mastering-markdown/)
