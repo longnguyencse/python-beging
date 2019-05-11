@@ -10,21 +10,18 @@ import collections
 
 # importing the dataset
 
-# dataset = pd.read_csv('file.csv')
-#
-# print('Overview database : ' + dataset.shape)
-#
-# print('Data structure: ' + dataset.head())
-#
-# X = dataset.drop('congestion')
-# y = dataset['congestion']
+dataset = pd.read_csv('../data/dataset/train_ltk_cleaned.csv')
 
-dataset = pd.read_csv("../data/bill_authentication.csv")
-print(dataset.shape)
-print(dataset.head())
 
-X = dataset.drop('Class', axis=1)
-y = dataset['Class']
+X = dataset.drop('congestion', axis=1)
+y = dataset['congestion']
+
+# dataset = pd.read_csv("../data/bill_authentication.csv")
+# print(dataset.shape)
+# print(dataset.head())
+
+# X = dataset.drop('Class', axis=1)
+# y = dataset['Class']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20)
 
@@ -38,7 +35,8 @@ print(classification_report(y_test, y_pred))
 
 # Visualize data
 dot_data = tree.export_graphviz(classifier,
-                                feature_names=['Variance','Skewness','Curtosis','Entropy'],
+                                # feature_names=['Variance','Skewness','Curtosis','Entropy'],
+                                feature_names=['segmentId', 'weekday', 'hour', 'isPeakedTime', 'isWeekend'],
                                 out_file=None,
                                 filled=True,
                                 rounded=True)
@@ -59,6 +57,7 @@ for edge in edges:
 graph.write_png('DT.png')
 
 # Prediction
-predict = pd.read_csv("../data/predict/predict.csv")
-# prediction = classifier.predict([[133, 37,1]])
-# print(prediction)
+# https://stackabuse.com/decision-trees-in-python-with-scikit-learn/
+predict = pd.read_csv("../data/predict/tc_predict.csv")
+prediction = classifier.predict(predict)
+print(prediction)

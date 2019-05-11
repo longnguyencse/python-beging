@@ -70,7 +70,7 @@ def genLable(speed):
 
 
 def concatResData(lst):
-    return pd.concat([pd.read_csv("../data/week" + str(x) + "/ltk_week_data.csv") for x in lst])
+    return pd.concat([pd.read_csv("../data/week" + str(x) + "/ltk_week_data.csv", low_memory=False) for x in lst])
 
 
 def genDataSet(streetID, file_name_gen_for_week, datasetName):
@@ -90,7 +90,7 @@ def genDataSet(streetID, file_name_gen_for_week, datasetName):
     df.to_csv(datasetName + '.csv', index=False)
 
 def cleaning(dataset_name, cleaned_dataset_name):
-    df = pd.read_csv(dataset_name + '.csv')
+    df = pd.read_csv(dataset_name + '.csv', low_memory=False)
     q1 = df['speed'].quantile(0.25)
     q3 = df['speed'].quantile(0.75)
     IQR = q3 - q1
@@ -100,7 +100,7 @@ def cleaning(dataset_name, cleaned_dataset_name):
 
 
 def replicate(trainfile, outputfile, replicate_label, reference_label, header='infer'):
-    df = pd.read_csv(trainfile, header=header)
+    df = pd.read_csv(trainfile, header=header, low_memory=False)
     df.columns = ['segmentId', 'weekday', 'hour', 'isPeakedTime', 'isWeekend', 'congestion']
     print("Before:")
     print(df['congestion'].value_counts(dropna=False))
