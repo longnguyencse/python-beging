@@ -1,16 +1,17 @@
+import collections
+
 import pandas as pd
 import pydotplus
 from sklearn import tree
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
-import collections
 
 # Data collections
 # 'segmentId', 'weekday', 'hour', 'isPeakedTime', 'isWeekend', 'congestion'
 
 # importing the dataset
 
-dataset = pd.read_csv('../data/dataset/train_ltk_cleaned.csv')
+dataset = pd.read_csv('../data/dataset/train_tc_cleaned.csv')
 
 
 X = dataset.drop('congestion', axis=1)

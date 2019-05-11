@@ -1,5 +1,4 @@
 import pandas as pd
-from datetime import datetime
 
 
 def create_predict_file(date, time):
@@ -40,5 +39,5 @@ def create_predict_file(date, time):
 if __name__ == '__main__':
     print('create predict file for Trường Chinh street')
     day = '2019-05-19'
-    time = 3
+    time = 8
     create_predict_file(day, time)
