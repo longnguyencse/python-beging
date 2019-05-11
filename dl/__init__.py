@@ -30,6 +30,14 @@ def genIsWeekend(day):
 def genIsPeakedTime(hour):
     return 1 if (hour > 6 and hour < 8) or (hour > 11 and hour < 14) or (hour > 16 and hour < 19.5) else 0
 
+def genIsHoliday(timestamp):
+    unix_timestamp = timestamp//1000
+    local_timezone = tzlocal.get_localzone() # get pytz timezone
+    local_time = datetime.fromtimestamp(unix_timestamp, local_timezone)
+    day = (int(local_time.day),int(local_time.month))
+    holiday = [(31,1),(2,9),(5,4),(20,10),(20,11),(1,1),(24,12),(30,4),(1,5),(1,6),(8,3)]
+    out = 1 if day in holiday else 0
+    return out
 
 def genIsHoliday(timestamp):
     unix_timestamp = timestamp // 1000
@@ -53,12 +61,12 @@ def genHours(timestamp):
 def genLable(speed):
     if speed < 5 and speed > 0:
         return "Red"
-    elif speed >= 5 and speed < 15:
+    elif speed >= 5 and speed < 10:
+        return "Orange"
+    elif speed >= 10 and speed < 15:
         return "Yellow"
-    elif speed >= 15 and speed < 25:
+    elif speed >= 15:
         return "Green"
-    else:
-        return "TT"
 
 
 def concatResData(lst):
@@ -74,6 +82,7 @@ def genDataSet(streetID, file_name_gen_for_week, datasetName):
         df['hour'] = df[8].apply(genHours)
         df['isPeakedTime'] = df['hour'].apply(genIsPeakedTime)
         df['isWeekend'] = df['weekday'].apply(genIsWeekend)
+        df['isHoliday'] = df[8].apply(genIsHoliday)
         df['congestion'] = df[1].apply(genLable)
         df.columns = ['segmentId', 'speed', 'timestamp', 'weekday', 'hour', 'isPeakedTime', 'isWeekend', 'congestion']
         df.to_csv('../data/week' + str(i) + '/' + file_name_gen_for_week + '.csv', index=False)
