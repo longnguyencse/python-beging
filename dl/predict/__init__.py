@@ -8,10 +8,11 @@ def create_predict_file(date, time):
             'hour': [],
             'isPeakedTime': [],
             'isWeekend': [],
+            'isHoliday':[]
             }
 
-    columns = ['segmentId', 'weekday', 'hour', 'isPeakedTime', 'isWeekend']
-    df = pd.DataFrame(data, columns=['segmentId', 'weekday', 'hour', 'isPeakedTime', 'isWeekend'])
+    columns = ['segmentId', 'weekday', 'hour', 'isPeakedTime', 'isWeekend', 'isHoliday']
+    df = pd.DataFrame(data, columns=columns)
 
     # export_csv = df.to_csv('../../data/predict/tc_predict_' + str(datetime.now().timestamp()) + '.csv', index=None,
     #                        header=True)  # Don't forget to add '.csv' at the end of the path
@@ -20,7 +21,7 @@ def create_predict_file(date, time):
     # df_old = pd.read_csv('../../data/predict/tc_predict.csv')
     for x in range(1, 40):
         df_old = pd.read_csv('../../data/predict/tc_predict.csv')
-        new_data = [[x, 2, 8, 1, 0]]
+        new_data = [[x, 2, 8, 1, 0, 0]]
         # get column names of your existing data
         col_names = df_old.columns
 
