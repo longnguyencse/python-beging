@@ -84,7 +84,8 @@ def genDataSet(streetID, file_name_gen_for_week, datasetName):
         df['isWeekend'] = df['weekday'].apply(genIsWeekend)
         df['isHoliday'] = df[8].apply(genIsHoliday)
         df['congestion'] = df[1].apply(genLable)
-        df.columns = ['segmentId', 'speed', 'timestamp', 'weekday', 'hour', 'isPeakedTime', 'isWeekend', 'congestion']
+        df.columns = ['segmentId', 'speed', 'timestamp', 'weekday', 'hour', 'isPeakedTime', 'isWeekend', 'isHoliday',
+                      'congestion']
         df.to_csv('../data/week' + str(i) + '/' + file_name_gen_for_week + '.csv', index=False)
     df = concatResData(list(range(1, 8)))  # w 1,2,3,4,5,6,7
     df.to_csv(datasetName + '.csv', index=False)
@@ -98,6 +99,10 @@ def cleaning(dataset_name, cleaned_dataset_name):
     res = df[(df.speed > outlier_range[0]) & (df.speed < outlier_range[1]) & (df.speed > 0)]
     res.to_csv(cleaned_dataset_name + '.csv', index=False)
 
+def cleaning_simple(dataset_name, cleaned_dataset_name):
+    df = pd.read_csv(dataset_name + '.csv', low_memory=False)
+    res = df[(df.speed > 0)]
+    res.to_csv(cleaned_dataset_name + '.csv', index=False)
 
 def replicate(trainfile, outputfile, replicate_label, reference_label, header='infer'):
     df = pd.read_csv(trainfile, header=header, low_memory=False)
@@ -115,15 +120,22 @@ def replicate(trainfile, outputfile, replicate_label, reference_label, header='i
     newdf.to_csv(outputfile, index=False)
 
 
+def drop_speed(clean_file, outputfile, header='infer'):
+    dataset = pd.read_csv(clean_file)
+    X = dataset.drop('speed', axis=1)
+    X.to_csv(outputfile, index=False)
+
 def precesorData():
     startTime = datetime.now().timestamp();
     print(datetime.now());
 
-    genDataSet(220860894, 'ltk_week_data', 'train_ltk')
-    genDataSet(219861105, 'tc_week_data', 'train_tc')
+    # genDataSet(220860894, 'ltk_week_data', 'train_ltk')
+    # genDataSet(219861105, 'tc_week_data', 'train_tc')
     #
-    cleaning('train_ltk', 'train_ltk_cleaned')
-    cleaning('train_tc', 'train_tc_cleaned')
+    # cleaning('train_ltk', 'train_ltk_cleaned')
+    # cleaning('train_tc', 'train_tc_cleaned')
+    # drop_speed('train_ltk_cleaned.csv', 'new_train_ltk.csv')
+    drop_speed('train_tc_cleaned.csv', 'new_train_tc.csv')
     print(datetime.now())
     print('Time took: ' + str(datetime.now().timestamp() - startTime) + ' s')
 
